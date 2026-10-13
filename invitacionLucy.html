@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mis XV · Lucy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EEF1F6;
+    --surface: #FAFBFD;
+    --ink: #14213D;
+    --ink-soft: #4A5878;
+    --gold: #A8823F;
+    --gold-soft: #CDB98C;
+    --blush: #DCE3EE;
+    --btn-ink: #FAFBFD;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0E1A33;
+      --surface: #16254A;
+      --ink: #EEF1F7;
+      --ink-soft: #B3BED6;
+      --gold: #D8B877;
+      --gold-soft: #7D6B45;
+      --blush: #1C2D55;
+      --btn-ink: #0E1A33;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E1A33;
+    --surface: #16254A;
+    --ink: #EEF1F7;
+    --ink-soft: #B3BED6;
+    --gold: #D8B877;
+    --gold-soft: #7D6B45;
+    --blush: #1C2D55;
+    --btn-ink: #0E1A33;
+    color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+    font-size: 1.2rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 3.5rem;
+    text-align: center;
+  }
+
+  /* Hero: arco tipo espejo de salón */
+  .arch {
+    position: relative;
+    margin: 0 auto;
+    width: min(100%, 22rem);
+    aspect-ratio: 3 / 4.1;
+    border: 1px solid var(--gold);
+    border-radius: 11rem 11rem 0.4rem 0.4rem;
+    padding: 0.55rem;
+    animation: reveal 1.6s ease-out both;
+  }
+  .arch-inner {
+    height: 100%;
+    border: 1px solid var(--gold-soft);
+    border-radius: 10.5rem 10.5rem 0.2rem 0.2rem;
+    background:
+      radial-gradient(ellipse at 50% 30%, var(--surface) 0%, transparent 70%),
+      var(--blush);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+  .xv {
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin: 0;
+  }
+  .name {
+    font-family: "Pinyon Script", "Snell Roundhand", cursive;
+    font-weight: 400;
+    font-size: clamp(5rem, 26vw, 7.2rem);
+    line-height: 1;
+    margin: 0.6rem 0 0.4rem;
+    color: var(--ink);
+  }
+  .star {
+    width: 2.4rem;
+    height: auto;
+    color: var(--gold);
+    margin: 0.3rem 0 0.8rem;
+  }
+  .hero-date {
+    margin: 0;
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+
+  .welcome {
+    margin: 2.6rem auto 0;
+    max-width: 24rem;
+    font-size: 1.3rem;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* Cuenta regresiva */
+  .countdown {
+    margin: 2.6rem 0 0;
+  }
+  .countdown h2, .block h2 {
+    font-family: "Pinyon Script", "Snell Roundhand", cursive;
+    font-weight: 400;
+    font-size: 2.3rem;
+    line-height: 1.1;
+    color: var(--gold);
+    margin: 0 0 0.9rem;
+  }
+  .clock {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.4rem;
+    border-top: 1px solid var(--gold-soft);
+    border-bottom: 1px solid var(--gold-soft);
+    padding: 0.9rem 0;
+  }
+  .clock div { display: flex; flex-direction: column; }
+  .clock .num {
+    font-size: 2.3rem;
+    font-weight: 500;
+    line-height: 1;
+    font-variant-numeric: lining-nums tabular-nums;
+  }
+  .clock .lbl { font-size: 0.95rem; color: var(--ink-soft); margin-top: 0.3rem; }
+  .today-msg { font-size: 1.4rem; font-style: italic; margin: 0.6rem 0 0; }
+
+  /* Bloques de información */
+  .block { margin-top: 2.8rem; }
+  .block p { margin: 0.15rem 0; }
+  .muted { color: var(--ink-soft); }
+  .big { font-size: 1.45rem; font-weight: 500; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    min-height: 3rem;
+    padding: 0.7rem 1.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    background: var(--ink);
+    color: var(--btn-ink);
+    font: inherit;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn.outline { background: transparent; color: var(--ink); }
+  .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .btn svg { width: 1.1rem; height: 1.1rem; }
+
+  .alias-box {
+    margin: 1rem auto 0;
+    max-width: 20rem;
+    padding: 1.1rem 1rem 1.2rem;
+    border: 1px solid var(--gold-soft);
+    border-radius: 0.5rem;
+    background: var(--surface);
+  }
+  .alias {
+    font-size: 1.6rem;
+    font-weight: 600;
+    word-break: break-all;
+    margin: 0.2rem 0 0.4rem !important;
+  }
+  .toast {
+    min-height: 1.5rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .sign {
+    font-family: "Pinyon Script", "Snell Roundhand", cursive;
+    font-size: 2.6rem;
+    margin: 3.2rem 0 0;
+    color: var(--ink);
+  }
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .arch { animation: none; }
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <section class="arch" aria-label="Invitación">
+    <div class="arch-inner">
+      <p class="xv">mis quince años</p>
+      <h1 class="name">Lucy</h1>
+      <svg class="star" viewBox="0 0 48 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1">
+        <line x1="0" y1="8" x2="17" y2="8"/>
+        <path d="M24 1 L26 8 L24 15 L22 8 Z" fill="currentColor"/>
+        <line x1="31" y1="8" x2="48" y2="8"/>
+      </svg>
+      <p class="hero-date">Miércoles 14 de octubre<br>19:00 hs</p>
+    </div>
+  </section>
+
+  <p class="welcome">Te invito a compartir conmigo una cena por mi cumpleaños número 15!!!.</p>
+
+  <section class="countdown" aria-live="polite">
+    <h2>Faltan</h2>
+    <div class="clock" id="clock">
+      <div><span class="num" id="d">0</span><span class="lbl">días</span></div>
+      <div><span class="num" id="h">00</span><span class="lbl">horas</span></div>
+      <div><span class="num" id="m">00</span><span class="lbl">minutos</span></div>
+      <div><span class="num" id="s">00</span><span class="lbl">segundos</span></div>
+    </div>
+    <p class="today-msg" id="todayMsg" hidden></p>
+  </section>
+
+  <section class="block">
+    <h2>Cuándo</h2>
+    <p class="big">Miércoles 14 de octubre de 2026</p>
+    <p class="muted">A partir de las 19:00 hs</p>
+  </section>
+
+  <section class="block">
+    <h2>Dónde</h2>
+    <p class="muted">Tocá el botón para ver la ubicación y cómo llegar.</p>
+    <a class="btn" href="https://maps.app.goo.gl/bZrYH87UCpnFH4d16" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+      Ver ubicación
+    </a>
+  </section>
+
+  <section class="block">
+    <h2>Vestimenta</h2>
+    <p class="big">Formal</p>
+  </section>
+
+  <section class="block">
+    <h2>Regalo</h2>
+    <p class="muted">Tu presencia es lo más importante. Si además querés hacerme un regalo, podés usar este alias:</p>
+    <div class="alias-box">
+      <p class="alias" id="alias">lucicampossss</p>
+      <p class="muted">Lucia Jazmin Campos Duran<br>Mercado Pago</p>
+      <button class="btn outline" id="copyBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
+        Copiar alias
+      </button>
+      <div class="toast" id="toast" role="status"></div>
+    </div>
+  </section>
+
+  <p class="sign">¡Te espero!</p>
+</main>
+
+<script>
+  // 14/10/2026 19:00 hora de Argentina (UTC-3)
+  const target = new Date("2026-10-14T19:00:00-03:00").getTime();
+  const endOfParty = target + 7 * 60 * 60 * 1000;
+  const pad = n => String(n).padStart(2, "0");
+  const els = { d: document.getElementById("d"), h: document.getElementById("h"), m: document.getElementById("m"), s: document.getElementById("s") };
+  const clock = document.getElementById("clock");
+  const msg = document.getElementById("todayMsg");
+  const title = document.querySelector(".countdown h2");
+
+  function tick() {
+    const now = Date.now();
+    let diff = target - now;
+    if (diff <= 0) {
+      clock.hidden = true;
+      msg.hidden = false;
+      if (now < endOfParty) {
+        title.textContent = "¡Llegó la noche!";
+        msg.textContent = "La fiesta ya empezó. ¡Te esperamos!";
+      } else {
+        title.textContent = "Gracias";
+        msg.textContent = "Gracias por ser parte de esta noche tan especial.";
+      }
+      return false;
+    }
+    const d = Math.floor(diff / 86400000); diff %= 86400000;
+    const h = Math.floor(diff / 3600000); diff %= 3600000;
+    const m = Math.floor(diff / 60000); diff %= 60000;
+    const s = Math.floor(diff / 1000);
+    els.d.textContent = d;
+    els.h.textContent = pad(h);
+    els.m.textContent = pad(m);
+    els.s.textContent = pad(s);
+    return true;
+  }
+  if (tick()) {
+    const timer = setInterval(() => { if (!tick()) clearInterval(timer); }, 1000);
+  }
+
+  // Copiar alias
+  const toast = document.getElementById("toast");
+  let toastTimer;
+  function showToast(text) {
+    toast.textContent = text;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.textContent = ""; }, 2500);
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.setAttribute("readonly", "");
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+  document.getElementById("copyBtn").addEventListener("click", async () => {
+    const text = document.getElementById("alias").textContent.trim();
+    try {
+      await navigator.clipboard.writeText(text);
+      showToast("Alias copiado");
+    } catch (e) {
+      showToast(fallbackCopy(text) ? "Alias copiado" : "Mantené presionado el alias para copiarlo");
+    }
+  });
+</script>
+</body>
+</html>
